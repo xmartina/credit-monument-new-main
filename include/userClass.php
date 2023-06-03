@@ -1784,7 +1784,7 @@ class emailMessage{
                 
                     <tr>
                         <td bgcolor='#ffffff' align='center' style='padding: 0px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;'>
-                            <p style='margin: 0;'>For more detailed information about any of our products or services, please refer to our website, <a href='$APP_URL'>$APP_URL</a>, or visit any of our convenient locations. You may contact us by phone at $BANK_PHONE.</p>
+                            <p style='margin: 0;'>For more detailed information about any of our products or services, please refer to our website, <a href='$APP_URL'>$APP_URL</a>, or visit any of our convenient locations.</p>
                         </td>
                     </tr>
                     <tr>
