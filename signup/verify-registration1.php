@@ -24,10 +24,10 @@ if(isset($_POST['regSubmit'])){
     $acct_username = $_POST['username'];
     $acct_password = $_POST['acct_password'];
     $confirmPassword = $_POST['confirmPassword'];
-    // $ssn = $_POST['ssn'];
-    // $confirm_ssn = $_POST['confirm-ssn'];
-    // $acct_dob = $_POST['dob'];
-    $acct_pin = inputValidation($_POST['acct_pin']);
+    $ssn = $_POST['ssn'];
+    $confirm_ssn = $_POST['confirm-ssn'];
+    $acct_dob = $_POST['dob'];
+     $acct_pin = inputValidation($_POST['acct_pin']);
 
 
 
@@ -81,68 +81,84 @@ if(isset($_POST['regSubmit'])){
 
                     $destination = $folder . $n;
                 }
-                if (isset($_FILES['profile_pic'])) {
+                if (move_uploaded_file($file['tmp_name'], $destination)) {
 
-                    //INSERT INTO DATABASE
-                    $registered = "INSERT INTO users (acct_username,firstname,lastname,acct_email,acct_password,acct_no,acct_type,acct_gender,acct_currency,acct_status,acct_phone,acct_occupation,country,state,acct_address,acct_dob,acct_pin,ssn,frontID,backID,image) VALUES(:acct_username,:firstname,:lastname,:acct_email,:acct_password,:acct_no,:acct_type,:acct_gender,:acct_currency,:acct_status,:acct_phone,:acct_occupation,:country,:state,:acct_address,:acct_dob,:acct_pin,:ssn,:frontID,:backID,:image)";
-                    $reg = $conn->prepare($registered);
-                    $reg->execute([
-                        'acct_username' => $acct_username,
-                        'firstname' => $firstname,
-                        'lastname' => $lastname,
-                        'acct_email' => $acct_email,
-                        'acct_password' => password_hash((string)$acct_password, PASSWORD_BCRYPT),
-                        'acct_no' => $acct_no,
-                        'acct_type' => $acct_type,
-                        'acct_gender' => $acct_gender,
-                        'acct_currency' => $acct_currency,
-                        'acct_status' => $acct_status,
-                        'acct_phone' => $acct_phone,
-                        'acct_occupation' => $acct_occupation,
-                        'country' => $country,
-                        'state' => $state,
-                        'acct_address' => $acct_address,
-                        'acct_dob' => $acct_dob,
-                        'acct_pin' => $acct_pin,
-                        'ssn' => $ssn,
-                        'frontID' => $frontid,
-                        'backID' => $backId,
-                        'image'=>$n
-                    ]);
+                    if (isset($_FILES['backID'])) {
+                        $file = $_FILES['backID'];
+                        $name = $file['name'];
+
+                        $path = pathinfo($name, PATHINFO_EXTENSION);
+
+                        $allowed = array('jpg', 'png', 'jpeg');
 
 
-                    if (true) {
+                        $folder = "../assets/idcard/";
+                        $backId = time() . $name;
 
-                        // if ($acct_currency === 'USD') {
-                        //     $currency = "$";
-                        // } elseif ($acct_currency === 'EUR') {
-                        //     $currency = "&euro;";
-                        // }
-
-                        $fullName = $firstname . " " . $lastname;
-                        //EMAIL SENDING
-                        $email = $acct_email;
-                        $APP_NAME = $pageTitle;
-                        $APP_URL = WEB_URL;
-                        $message = $sendMail->regMsgUser($fullName,$acct_no,$acct_status,$acct_email,$acct_phone,$acct_type,$acct_pin,$APP_NAME,$APP_URL);
-                        //User Email
-                        $subject = "Register - $APP_NAME";
-                        $email_message->send_mail($email, $message, $subject);
-                        // Admin Email
-                        $subject = "User Register - $APP_NAME";
-                        $email_message->send_mail(WEB_EMAIL, $message, $subject);
+                        $destination = $folder . $n;
                     }
+                    if (move_uploaded_file($file['tmp_name'], $destination)) {
+
+                        //INSERT INTO DATABASE
+                        $registered = "INSERT INTO users (acct_username,firstname,lastname,acct_email,acct_password,acct_no,acct_type,acct_gender,acct_currency,acct_status,acct_phone,acct_occupation,country,state,acct_address,acct_dob,acct_pin,ssn,frontID,backID,image) VALUES(:acct_username,:firstname,:lastname,:acct_email,:acct_password,:acct_no,:acct_type,:acct_gender,:acct_currency,:acct_status,:acct_phone,:acct_occupation,:country,:state,:acct_address,:acct_dob,:acct_pin,:ssn,:frontID,:backID,:image)";
+                        $reg = $conn->prepare($registered);
+                        $reg->execute([
+                            'acct_username' => $acct_username,
+                            'firstname' => $firstname,
+                            'lastname' => $lastname,
+                            'acct_email' => $acct_email,
+                            'acct_password' => password_hash((string)$acct_password, PASSWORD_BCRYPT),
+                            'acct_no' => $acct_no,
+                            'acct_type' => $acct_type,
+                            'acct_gender' => $acct_gender,
+                            'acct_currency' => $acct_currency,
+                            'acct_status' => $acct_status,
+                            'acct_phone' => $acct_phone,
+                            'acct_occupation' => $acct_occupation,
+                            'country' => $country,
+                            'state' => $state,
+                            'acct_address' => $acct_address,
+                            'acct_dob' => $acct_dob,
+                            'acct_pin' => $acct_pin,
+                            'ssn' => $ssn,
+                            'frontID' => $frontid,
+                            'backID' => $backId,
+                            'image'=>$n
+                ]);
 
 
-                    if (true) {
-                        toast_alert('success', 'Account Created Successfully, Kindly proceed to login', 'Approved');
-                    } else {
-                        toast_alert('error', 'Sorry something went wrong');
-                    }
+                if (true) {
+
+                    // if ($acct_currency === 'USD') {
+                    //     $currency = "$";
+                    // } elseif ($acct_currency === 'EUR') {
+                    //     $currency = "&euro;";
+                    // }
+
+                    $fullName = $firstname . " " . $lastname;
+                    //EMAIL SENDING
+                    $email = $acct_email;
+                    $APP_NAME = $pageTitle;
+                    $APP_URL = WEB_URL;
+                    $message = $sendMail->regMsgUser($fullName,$acct_no,$acct_status,$acct_email,$acct_phone,$acct_type,$acct_pin,$APP_NAME,$APP_URL);
+                    //User Email
+                    $subject = "Register - $APP_NAME";
+                    $email_message->send_mail($email, $message, $subject);
+                    // Admin Email
+                    $subject = "User Register - $APP_NAME";
+                    $email_message->send_mail(WEB_EMAIL, $message, $subject);
+                }
+
+
+           if (true) {
+                    toast_alert('success', 'Account Created Successfully, Kindly proceed to login', 'Approved');
+                } else {
+                    toast_alert('error', 'Sorry something went wrong');
+                }
 
                 }
+                }
             }
-
 
         }
     }
@@ -153,11 +169,16 @@ if(isset($_POST['regSubmit'])){
 ?>
 
 
-    <!--New Reg Form-->
-    <section class="wizard-section container mx-auto text-center">
-        <h1>Create Your Bank Account</h1>
-        <div class="w-75 mx-auto container-div">
-            <div class="form-wizard ">
+
+<section class="wizard-section">
+    <div class="row no-gutters">
+        <div class="col-lg-6 col-md-6 container-div">
+            <div class="wizard-content-left d-flex justify-content-center align-items-center">
+                <h1>Create Your Bank Account</h1>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 container-div">
+            <div class="form-wizard">
                 <form action="" method="post" role="form" enctype="multipart/form-data">
                     <div class="form-wizard-header">
                         <p>Fill all form field to go next step</p>
@@ -166,8 +187,8 @@ if(isset($_POST['regSubmit'])){
                             <li><span>2</span></li>
                             <li><span>3</span></li>
                             <li><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                           stroke-linejoin="round" class="feather feather-check">
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-check">
                                         <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg></span></li>
                         </ul>
@@ -179,14 +200,14 @@ if(isset($_POST['regSubmit'])){
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control"  name="firstname">
+                                    <input type="text" class="form-control wizard-required" id="fname" name="firstname">
                                     <label for="fname" class="wizard-form-text-label">First Name*</label>
                                     <div class="wizard-form-error"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="lastname">
+                                    <input type="text" class="form-control wizard-required" id="lname" name="lastname">
                                     <label for="lname" class="wizard-form-text-label">Last Name*</label>
                                     <div class="wizard-form-error"></div>
                                 </div>
@@ -205,16 +226,10 @@ if(isset($_POST['regSubmit'])){
                                         <option value="CAD">CAD</option>
 
                                     </select>
-                                    <label for="phoneNumber" class="wizard-form-text-label visibility-no">Currency Type*</label>
+                                    <label for="phoneNumber" class="wizard-form-text-label">Currency Type*</label>
                                     <div class="wizard-form-error"></div>
                                 </div>
                             </div>
-
-                            <style>
-                                .visibility-no{
-                                    display:none;
-                                }
-                            </style>
 
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -224,7 +239,7 @@ if(isset($_POST['regSubmit'])){
                                         <option value="Current">Current Account</option>
 
                                     </select>
-                                    <label for="occupation" class="wizard-form-text-label visibility-no">Account Type</label>
+                                    <label for="occupation" class="wizard-form-text-label">Account Type</label>
                                     <div class="wizard-form-error"></div>
                                 </div>
                             </div>
@@ -233,7 +248,7 @@ if(isset($_POST['regSubmit'])){
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="occupation">
+                                    <input type="text" class="form-control wizard-required" name="occupation">
 
                                     <label for="occupation" class="wizard-form-text-label">Occupation</label>
                                     <div class="wizard-form-error"></div>
@@ -509,16 +524,16 @@ if(isset($_POST['regSubmit'])){
 
                         <h5>Residential Address</h5>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="address">
+                            <input type="text" class="form-control wizard-required" id="address" name="address">
                             <input name="radio-name" id="text" type="text" value="male" hidden>
 
-                            <label for="address" class="wizard">Street Address</label>
+                            <label for="address" class="wizard-form-text-label">Street Address*</label>
                             <div class="wizard-form-error"></div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="" name="suite">
+                                    <input type="text" class="form-control wizard" id="Suite" name="suite">
                                     <label for="Suite" class="wizard-form-text-label">Apt/Suite/Unit</label>
                                     <div class="wizard-form-error"></div>
                                 </div>
@@ -526,7 +541,7 @@ if(isset($_POST['regSubmit'])){
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="" name="city">
+                                    <input type="text" class="form-control wizard-required" id="city" name="city">
                                     <label for="city" class="wizard-form-text-label">City*</label>
                                     <div class="wizard-form-error"></div>
                                 </div>
@@ -536,7 +551,7 @@ if(isset($_POST['regSubmit'])){
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="" name="state">
+                                    <input type="text" class="form-control wizard-required" id="state" name="state">
                                     <label for="state" class="wizard-form-text-label">State*</label>
                                     <div class="wizard-form-error"></div>
                                 </div>
@@ -544,8 +559,8 @@ if(isset($_POST['regSubmit'])){
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="" name="zipcode">
-                                    <label for="zipcode" class="">Zip Code*</label>
+                                    <input type="text" class="form-control wizard-required" id="zipcode" name="zipcode">
+                                    <label for="zipcode" class="wizard-form-text-label">Zip Code*</label>
                                     <div class="wizard-form-error"></div>
                                 </div>
                             </div>
@@ -566,7 +581,7 @@ if(isset($_POST['regSubmit'])){
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input type="number" class="form-control wizard-required" id="phoneNumber"
-                                           name="phoneNumber">
+                                        name="phoneNumber">
                                     <label for="phoneNumber" class="wizard-form-text-label">Phone Number*</label>
                                     <div class="wizard-form-error"></div>
                                 </div>
@@ -575,7 +590,7 @@ if(isset($_POST['regSubmit'])){
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input type="text" class="form-control wizard-required" id="username"
-                                           name="username">
+                                        name="username">
                                     <input type="text" name="acct_pin" id="acct_pin" value="1234" hidden>
                                     <label for="city" class="wizard-form-text-label">Username*</label>
                                     <div class="wizard-form-error"></div>
@@ -587,13 +602,13 @@ if(isset($_POST['regSubmit'])){
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input type="password" class="form-control wizard-required" id="pwd"
-                                           name="acct_password">
+                                        name="acct_password">
                                     <label for="pwd" class="wizard-form-text-label">Password*</label>
                                     <div class="wizard-form-error"></div>
                                     <span class="wizard-password-eye"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                           height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                                           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                                           class="feather feather-lock">
+                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-lock">
                                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                         </svg></span>
@@ -604,14 +619,14 @@ if(isset($_POST['regSubmit'])){
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input type="password" class="form-control wizard-required" id="confirmPassword"
-                                           name="confirmPassword">
+                                        name="confirmPassword">
                                     <label for="confirmPassword" class="wizard-form-text-label">Confirm
                                         Password*</label>
                                     <div class="wizard-form-error"></div>
                                     <span class="wizard-password-eye"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                           height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                                           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                                           class="feather feather-lock">
+                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-lock">
                                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                         </svg></span>
@@ -622,99 +637,98 @@ if(isset($_POST['regSubmit'])){
                         <div class="form-group clearfix">
                             <a href="javascript:;" class="form-wizard-previous-btn float-left">Previous</a>
 
-
                             <a href="javascript:;" class="form-wizard-next-btn float-right">Next</a>
                         </div>
                     </fieldset>
-                    <!--<fieldset class="wizard-fieldset">-->
-                    <!--    <h5>Verify your identity</h5>-->
-                    <!--    <p>We'er required by law to collect your Social Security Number / TIN.</p>-->
-                    <!--    <div id="Div1">-->
-                    <!--        <div class="container">-->
+                    <fieldset class="wizard-fieldset">
+                        <h5>Verify your identity</h5>
+                        <p>We'er required by law to collect your Social Security Number / TIN.</p>
+                        <div id="Div1">
+                            <div class="container">
 
-                    <!--            <div class="row mb-3">-->
-                    <!--                <div class="col-md-2 mb-2">-->
-                    <!--                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"-->
-                    <!--                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"-->
-                    <!--                        stroke-linecap="round" stroke-linejoin="round"-->
-                    <!--                        class="feather feather-lock text-primary">-->
-                    <!--                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>-->
-                    <!--                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>-->
-                    <!--                    </svg>-->
-                    <!--                </div>-->
-                    <!--                <div class="col-md-10">-->
-                    <!--                    <h6>Security in mind</h6>-->
-                    <!--                    We use your SSN or TIN to help keep your account safe and secure.-->
-                    <!--                </div>-->
-                    <!--            </div>-->
-                    <!--            <div class="row mb-3">-->
-                    <!--                <div class="col-md-2 mb-3">-->
-                    <!--                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"-->
-                    <!--                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"-->
-                    <!--                        stroke-linecap="round" stroke-linejoin="round"-->
-                    <!--                        class="feather feather-credit-card text-primary">-->
-                    <!--                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>-->
-                    <!--                        <line x1="1" y1="10" x2="23" y2="10"></line>-->
-                    <!--                    </svg>-->
-                    <!--                </div>-->
-                    <!--                <div class="col-md-10">-->
-                    <!--                    <h6>Only for what you need</h6>-->
-                    <!--                    Occasionally we'll need to provide you with tax documents, which require your-->
-                    <!--                    SSN.-->
-                    <!--                </div>-->
-                    <!--            </div>-->
-                    <!--            <div class="row mb-3">-->
-                    <!--                <div class="col-md-2 mb-3">-->
-                    <!--                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"-->
-                    <!--                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"-->
-                    <!--                        stroke-linecap="round" stroke-linejoin="round"-->
-                    <!--                        class="feather feather-edit text-primary">-->
-                    <!--                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>-->
-                    <!--                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>-->
-                    <!--                    </svg>-->
-                    <!--                </div>-->
-                    <!--                <div class="col-md-10">-->
-                    <!--                    <h6>No credit score impact</h6>-->
-                    <!--                    Applying for <?=WEB_TITLE?> Account will never impact your credit score-->
-                    <!--                </div>-->
-                    <!--            </div>-->
+                                <div class="row mb-3">
+                                    <div class="col-md-2 mb-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-lock text-primary">
+                                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <h6>Security in mind</h6>
+                                        We use your SSN or TIN to help keep your account safe and secure.
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-2 mb-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-credit-card text-primary">
+                                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                            <line x1="1" y1="10" x2="23" y2="10"></line>
+                                        </svg>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <h6>Only for what you need</h6>
+                                        Occasionally we'll need to provide you with tax documents, which require your
+                                        SSN.
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-2 mb-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-edit text-primary">
+                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <h6>No credit score impact</h6>
+                                        Applying for <?=WEB_TITLE?> Account will never impact your credit score
+                                    </div>
+                                </div>
 
-                    <!--        </div>-->
-                    <!--    </div>-->
+                            </div>
+                        </div>
 
-                    <!--    <div id="Div2">-->
-                    <!--        <div class="form-group">-->
-                    <!--            <input type="password" class="form-control wizard-required" id="ssn" name="ssn">-->
-                    <!--            <label for="ssn" class="wizard-form-text-label">Social Security Number / TIN*</label>-->
-                    <!--            <div class="wizard-form-error"></div>-->
-                    <!--            <span class="wizard-password-eye"><i class="far fa-eye"></i></span>-->
-                    <!--        </div>-->
+                        <div id="Div2">
+                            <div class="form-group">
+                                <input type="password" class="form-control wizard-required" id="ssn" name="ssn">
+                                <label for="ssn" class="wizard-form-text-label">Social Security Number / TIN*</label>
+                                <div class="wizard-form-error"></div>
+                                <span class="wizard-password-eye"><i class="far fa-eye"></i></span>
+                            </div>
 
-                    <!--        <div class="form-group">-->
-                    <!--            <input type="password" class="form-control wizard-required" id="confirm-ssn"-->
-                    <!--                name="confirm-ssn">-->
-                    <!--            <label for="confirm-ssn" class="wizard-form-text-label">Confirm SSN / TIN*</label>-->
-                    <!--            <div class="wizard-form-error"></div>-->
-                    <!--            <span class="wizard-password-eye"><i class="far fa-eye"></i></span>-->
-                    <!--        </div>-->
+                            <div class="form-group">
+                                <input type="password" class="form-control wizard-required" id="confirm-ssn"
+                                    name="confirm-ssn">
+                                <label for="confirm-ssn" class="wizard-form-text-label">Confirm SSN / TIN*</label>
+                                <div class="wizard-form-error"></div>
+                                <span class="wizard-password-eye"><i class="far fa-eye"></i></span>
+                            </div>
 
-                    <!--        <div class="form-group">-->
-                    <!--            <input type="date" class="form-control wizard-required" id="dob" name="dob">-->
-                    <!--            <label for="dob" class="wizard-form-text-label">Date of Birth*</label>-->
-                    <!--            <div class="wizard-form-error"></div>-->
-                    <!--            <span class="wizard-password-eye"><i class="far fa-eye"></i></span>-->
-                    <!--        </div>-->
+                            <div class="form-group">
+                                <input type="date" class="form-control wizard-required" id="dob" name="dob">
+                                <label for="dob" class="wizard-form-text-label">Date of Birth*</label>
+                                <div class="wizard-form-error"></div>
+                                <span class="wizard-password-eye"><i class="far fa-eye"></i></span>
+                            </div>
 
 
-                    <!--    </div>-->
+                        </div>
 
-                    <!--    <div class="form-group clearfix">-->
-                    <!--        <a href="javascript:;" class="form-wizard-previous-btn float-left">Previous</a>-->
-                    <!--        <a class="form-wizard-next-btn float-right" id="Button1" value="Click"-->
-                    <!--            onclick="switchVisible();">Next post</a>-->
-                    <!--        <a href="javascript:;" class="form-wizard-next-btn float-right" id="nextShow">Next time</a>-->
-                    <!--    </div>-->
-                    <!--</fieldset>-->
+                        <div class="form-group clearfix">
+                            <a href="javascript:;" class="form-wizard-previous-btn float-left">Previous</a>
+                            <a class="form-wizard-next-btn float-right" id="Button1" value="Click"
+                                onclick="switchVisible();">Next post</a>
+                            <a href="javascript:;" class="form-wizard-next-btn float-right" id="nextShow">Next time</a>
+                        </div>
+                    </fieldset>
                     <fieldset class="wizard-fieldset text-white">
                         <div class="mt-3">
                             <div class="form-group">
@@ -724,29 +738,34 @@ if(isset($_POST['regSubmit'])){
                         </div>
 
 
-                        <!--<div class="mt-3">-->
-                        <!--    <div class="form-group">-->
-                        <!--        <label for="frontDoc">ID CARD FRONT</label>-->
-                        <!--        <input class="form-control" type="file" name="frontID" id="frontDoc" required />-->
-                        <!--    </div>-->
+                        <div class="mt-3">
+                            <div class="form-group">
+                                <label for="frontDoc">ID CARD FRONT</label>
+                                <input class="form-control" type="file" name="frontID" id="frontDoc" required />
+                            </div>
 
-                        <!--    <div class="form-group">-->
-                        <!--        <label for="">ID CARD BACK</label>-->
-                        <!--        <input class="form-control" type="file" name="backID" id="" required />-->
-                        <!--    </div>-->
-                        <!--</div>-->
+                            <div class="form-group">
+                                <label for="">ID CARD BACK</label>
+                                <input class="form-control" type="file" name="backID" id="" required />
+                            </div>
+                        </div>
 
 
                         <div class="form-group clearfix">
                             <a href="javascript:;" class="form-wizard-previous-btn float-left">Previous</a>
-                            <!--<a href="javascript:;" class="form-wizard-submit float-right">Submit</a>-->
+                            <!--                            <a href="javascript:;" class="form-wizard-submit float-right">Submit</a>-->
                             <button class="form-wizard-submit float-right btn btn-primary" type="submit"
-                                    name="regSubmit">Submit</button>
+                                name="regSubmit">Submit</button>
                         </div>
                     </fieldset>
                 </form>
             </div>
-    </section>
+        </div>
+    </div>
+</section>
+
+
+
 
 
 <?php
