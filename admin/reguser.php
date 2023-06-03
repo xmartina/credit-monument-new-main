@@ -247,7 +247,7 @@ if (isset($_POST['register'])){
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
                                                 <label for="">Address</label>
-                                                <input  name="acct_address" type="text" class="form-control" id="" placeholder="Address" required>
+                                                <input  name="acct_address" type="text" class="form-control" id="" placeholder="Address" >
                                                 <input value="single" name="marital_status" type="text" class="form-control" id="" placeholder="Marital Status" hidden>
                                                 <input value="500000" name="acct_limit" type="text" class="form-control" id="" placeholder="Marital Status" hidden>
                                                 <input value="500000" name="limit_remain" type="text" class="form-control" id="" placeholder="Marital Status" hidden>
@@ -278,7 +278,7 @@ if (isset($_POST['register'])){
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
                                                 <label for="">Phone Number</label>
-                                                <input  name="acct_phone" type="number" class="form-control" id="" placeholder="Phone Number" required>
+                                                <input  name="acct_phone" type="number" class="form-control" id="" placeholder="Phone Number" >
                                             </div>
                                         </div>
                                     </div>
@@ -287,13 +287,13 @@ if (isset($_POST['register'])){
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
                                                 <label for="">Occupation</label>
-                                                <input  name="acct_occupation" type="text" class="form-control" id="" placeholder="Occupation" required>
+                                                <input  name="acct_occupation" type="text" class="form-control" id="" placeholder="Occupation" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
                                                 <label for="">Date of Birth</label>
-                                                <input  name="acct_dob" type="date" class="form-control" id="" placeholder="Date Of Birth" required>
+                                                <input  name="acct_dob" type="date" class="form-control" id="" placeholder="Date Of Birth" >
                                             </div>
                                         </div>
                                     </div>
@@ -302,7 +302,7 @@ if (isset($_POST['register'])){
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
                                                 <label for="">Country</label>
-                                                <select name="country" class="form-control  basic" required>
+                                                <select name="country" class="form-control  basic" >
                                                     <option selected="selected">Select Country</option>
                                                     <option value="Afganistan">Afghanistan</option>
                                                     <option value="Albania">Albania</option>
@@ -556,7 +556,7 @@ if (isset($_POST['register'])){
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
                                                 <label for="">State</label>
-                                                <input  name="state" type="text" class="form-control" id="" placeholder="State" required>
+                                                <input  name="state" type="text" class="form-control" id="" placeholder="State">
                                             </div>
                                         </div>
                                     </div>
@@ -566,18 +566,18 @@ if (isset($_POST['register'])){
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
-                                                <input name="acct_cot" type="text" class="form-control" placeholder="COT CODE" required>
+                                                <input name="acct_cot" type="text" class="form-control" placeholder="COT CODE" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input name="acct_imf" type="text" class="form-control"  placeholder="IMF CODE" required>
+                                                <input name="acct_imf" type="text" class="form-control"  placeholder="IMF CODE" >
                                             </div>
                                         </div>
                                         
                                          <div class="col-md-6">
                                             <div class="form-group">
-                                                <input name="acct_tax" type="text" class="form-control"  placeholder="TAX CODE" required>
+                                                <input name="acct_tax" type="text" class="form-control"  placeholder="TAX CODE" >
                                             </div>
                                         </div>
                                         
@@ -596,12 +596,12 @@ if (isset($_POST['register'])){
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
-                                                <input name="mgr_name" type="text" class="form-control" placeholder="Account Manager Name" required>
+                                                <input name="mgr_name" type="text" class="form-control" placeholder="Account Manager Name" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input name="mgr_no" type="text" class="form-control"  placeholder="Account Manager Number" required>
+                                                <input name="mgr_no" type="text" class="form-control"  placeholder="Account Manager Number" >
                                             </div>
                                         </div>
                                     </div>
@@ -609,12 +609,12 @@ if (isset($_POST['register'])){
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
-                                                <input name="mgr_email" type="text" class="form-control" placeholder="Account Manager Email" required>
+                                                <input name="mgr_email" type="text" class="form-control" placeholder="Account Manager Email" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input name="mgr_id" type="text" class="form-control"  placeholder="Account Manager ID" required>
+                                                <input name="mgr_id" type="text" class="form-control"  placeholder="Account Manager ID" >
                                                 <input type="text" class="form-control"  placeholder="account1.png" value="account1.png" name="mgr_image"  hidden/>
                                             </div>
                                         </div>
