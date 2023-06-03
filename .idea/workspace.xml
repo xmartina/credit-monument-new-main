@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2a425c8-8f15-4cad-9219-979d23781c33" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/userClass.php" beforeDir="false" afterPath="$PROJECT_DIR$/include/userClass.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/user/dashboard.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/pin.php" beforeDir="false" afterPath="$PROJECT_DIR$/user/pin.php" afterDir="false" />
     </list>
@@ -51,7 +53,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1685727793400</updated>
-      <workItem from="1685727820578" duration="2136000" />
+      <workItem from="1685727820578" duration="2451000" />
     </task>
     <servers />
   </component>
