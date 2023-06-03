@@ -193,7 +193,7 @@ else if(isset($_POST['debit'])){
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
-                                                <label for="">Amount <span class="fs-2">User Remaining Balance: <?php echo $user_balance; ?></span> </label>
+                                                <label for="">Amount <span class="fs-2">User Remaining Balance: <span class="text-black"><?php echo $user_balance; ?></span> </span> </label>
                                                 <input value="" type="number" name="amount" class="form-control" id="" placeholder="Amount" required>
                                             </div>
                                         </div>
