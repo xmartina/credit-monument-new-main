@@ -354,7 +354,7 @@ unset($_SESSION['wire_transfer'], $_SESSION['dom_transfer']);
             </div>
 <!--                    Credit / Debit transaction log-->
                     <div class="py-3">
-                        <span class="h6">Credit / Debit Transactions</span>
+                        <span class="h5">Credit / Debit Transactions</span>
                         <hr class="w-75 mx-auto my-1 p-0">
                     </div>
 
