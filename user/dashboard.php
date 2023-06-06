@@ -353,6 +353,11 @@ unset($_SESSION['wire_transfer'], $_SESSION['dom_transfer']);
                 </div>
             </div>
 <!--                    Credit / Debit transaction log-->
+                    <div class="py-3">
+                        Credit / Debit Transactions
+                        <hr class="w-75 mx-auto my-1 p-0">
+                    </div>
+
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
                             <table id="default-ordering" class="table table-hover" style="width:100%">
